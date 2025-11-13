@@ -15,12 +15,13 @@
         android:banner="@drawable/banner">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SmartHomeTV">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <!-- For TV launchers -->
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <!-- Do not include LAUNCHER to avoid mobile launcher exposure -->
             </intent-filter>
         </activity>
     </application>

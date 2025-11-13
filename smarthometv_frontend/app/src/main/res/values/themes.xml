@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      TV-friendly theme without external library dependencies.
+      Uses a platform default theme to avoid missing resource parents.
+    -->
+    <style name="Theme.SmartHomeTV" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <!-- Keep immersive look suitable for TV. Only platform attributes used. -->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>
