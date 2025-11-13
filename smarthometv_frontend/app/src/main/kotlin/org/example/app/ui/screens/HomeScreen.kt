@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import org.example.app.model.Device
 import org.example.app.model.dummyDevices
@@ -27,8 +25,6 @@ import org.example.app.ui.components.FocusableCard
 fun HomeScreen(
     onDeviceSelected: (Device) -> Unit
 ) {
-    val focusRequester = FocusRequester()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,12 +48,14 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(22.dp),
             contentPadding = PaddingValues(bottom = 48.dp)
         ) {
-            items(dummyDevices, key = { it.id }) { device ->
+            itemsIndexed(dummyDevices, key = { _, item -> item.id }) { index, device ->
+                // Simple heuristic: mark first item as focused by default; TV DPAD focus will move naturally
+                val focused = index == 0
                 FocusableCard(
                     title = device.name,
                     subtitle = device.status,
                     icon = device.icon,
-                    modifier = Modifier.focusRequester(focusRequester),
+                    focused = focused,
                     onClick = { onDeviceSelected(device) }
                 )
             }
