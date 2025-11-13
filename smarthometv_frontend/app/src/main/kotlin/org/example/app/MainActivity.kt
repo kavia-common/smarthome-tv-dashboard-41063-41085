@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import org.example.app.navigation.AppNav
 import org.example.app.ui.theme.SmartHomeTVTheme
 
@@ -17,7 +15,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SmartHomeTVTheme {
-                Surface(modifier = Modifier) {
+                // Minimal Surface without layout modifiers to avoid inline layout helpers.
+                Surface {
                     AppNav()
                 }
             }

@@ -8,11 +8,12 @@ import org.example.app.model.Device
 
 // PUBLIC_INTERFACE
 @Composable
-/** Home dashboard simplified to avoid foundation.layout inline methods. */
+/** Home dashboard simplified to avoid foundation.layout inline methods.
+ * Pure Surface + Text only; no Column/Row/Box/Spacer, no padding/fillMax or Arrangement/Alignment APIs.
+ */
 fun HomeScreen(
     onDeviceSelected: (Device) -> Unit
 ) {
-    // Minimal content: a single Surface with a title text.
     Surface {
         Text(
             text = "Smart Home",
