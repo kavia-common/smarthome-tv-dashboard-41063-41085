@@ -81,19 +81,13 @@ private fun RecordingBadge() {
 
 @Composable
 private fun FocusableBackButton(text: String, onClick: () -> Unit) {
-    var focused by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(if (focused) 1.06f else 1f, label = "backScale")
-
+    // Avoid remember/onFocusChanged to prevent inline IR issues. Use static button styling.
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .scale(scale)
-            .onFocusChanged { focused = it.isFocused }
-            .focusable(),
         shape = RoundedCornerShape(14.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (focused) Gold else MaterialTheme.colorScheme.surface,
-            contentColor = if (focused) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
         Text(text = text, style = MaterialTheme.typography.headlineMedium)

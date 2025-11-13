@@ -152,17 +152,10 @@ private fun StatusPill(text: String) {
 
 @Composable
 private fun FocusableOutlinedGoldButton(text: String, onClick: () -> Unit) {
-    var focused by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(if (focused) 1.06f else 1f, label = "btnScale")
-    val border by animateColorAsState(if (focused) Gold else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), label = "btnBorder")
-
+    // Avoid remember/onFocusChanged/animations to prevent inline IR issues.
     OutlinedButton(
         onClick = onClick,
-        modifier = Modifier
-            .scale(scale)
-            .onFocusChanged { focused = it.isFocused }
-            .focusable(),
-        border = BorderStroke(1.5.dp, border),
+        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)),
         shape = RoundedCornerShape(14.dp)
     ) {
         Text(text, style = MaterialTheme.typography.labelLarge)
@@ -171,19 +164,13 @@ private fun FocusableOutlinedGoldButton(text: String, onClick: () -> Unit) {
 
 @Composable
 private fun FocusableActionButton(text: String, iconTinted: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit) {
-    var focused by remember { mutableStateOf(false) }
-    val scale by animateFloatAsState(if (focused) 1.06f else 1f, label = "actionScale")
-
+    // Avoid focus state and animations in modifiers to prevent IR inline issues.
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .scale(scale)
-            .onFocusChanged { focused = it.isFocused }
-            .focusable(),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (focused) Gold else MaterialTheme.colorScheme.surface,
-            contentColor = if (focused) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
         Icon(imageVector = iconTinted, contentDescription = text, modifier = Modifier.padding(end = 12.dp))

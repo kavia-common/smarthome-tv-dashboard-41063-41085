@@ -13,5 +13,7 @@ androidApplication {
         implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
         implementation("androidx.compose.material:material-icons-core:1.7.5")
         implementation("androidx.compose.material:material-icons-extended:1.7.5")
+        // Align compose artifacts by bringing in BOM to satisfy inline symbol lookup across modules
+        implementation("androidx.compose:compose-bom:2024.10.01")
     }
 }
